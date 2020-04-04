@@ -101,7 +101,7 @@ lcd.openMenu(myInputMenu);
 - **goUp ()** : void - Navigates up (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goDown ()** : void - Navigates down (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goBack ()** : void - Navigates back (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
-- **goOn ()** : void - Navigates on (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goOn ()** : void - Navigates forward (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 
 ### Events
 - **error** (error) - Fires when an error is encountered.
