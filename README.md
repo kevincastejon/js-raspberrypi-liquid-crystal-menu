@@ -7,7 +7,7 @@ So all the original API is exposed through this module, check the usage [here](h
 
 ## Install
 ```
-npm i raspberrypi-liquid-crystal-simple
+npm i raspberrypi-liquid-crystal-menu
 ```
 
 ## Modes (how to use basic features along with the new one)
