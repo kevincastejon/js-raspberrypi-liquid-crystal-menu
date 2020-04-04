@@ -96,12 +96,12 @@ lcd.openMenu(myInputMenu);
 ### Methods
 - **openMenu ( menu : 'menu' object )** : void - Opens the provided menu (makes the original API not accessible).
 - **closeMenu ()** : void - Closes the current opened menu (makes the original API accessible).
-- **goLeft ()** : void - Navigates left (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
-- **goRight ()** : void - Navigates right (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
-- **goUp ()** : void - Navigates up (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
-- **goDown ()** : void - Navigates down (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
-- **goBack ()** : void - Navigates back (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
-- **goOn ()** : void - Navigates on (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes))
+- **goLeft ()** : void - Navigates left (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goRight ()** : void - Navigates right (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goUp ()** : void - Navigates up (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goDown ()** : void - Navigates down (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goBack ()** : void - Navigates back (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
+- **goOn ()** : void - Navigates on (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 
 ### Events
 - **error** (error) - Fires when an error is encountered.
