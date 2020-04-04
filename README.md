@@ -58,14 +58,15 @@ The object must contain the following properties:
 - onEnter: function - *optional* - Function called when entering the item.
 
 ## Basic Example
+Basic usage
 ```
 const myMenu = {
   title: 'My Menu',
   items: [
     {
       name: 'item 1',
-      onSelect: () => console.log('select Files'),
-      onEnter: () => console.log('enter Files'),
+      onSelect: () => console.log('selected item 1'),
+      onEnter: () => console.log('entered item 1'),
       link: anotherMenu,
     },
     {
@@ -76,6 +77,15 @@ const myMenu = {
 lcd.openMenu(myMenu);
 ```
 
+Input usage
+```
+const myInputMenu = {
+  title: 'My input menu',
+  onInput: (userInput) => console.log(userInput),
+  ]
+};
+lcd.openMenu(myInputMenu);
+```
 ## API (does not include the inherited [original API](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-simple/blob/master/README.md#api))
 - **constructor ( bus : int, address : int, cols : int, rows : int [, customChars : [][]int] )**
 ### Constants
