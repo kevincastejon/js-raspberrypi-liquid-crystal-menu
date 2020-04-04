@@ -1,4 +1,4 @@
-const LCDMenu = require('./index');
+const LCDMenu = require('../index');
 
 const lcd = new LCDMenu(1, 0x3f, 16, 2);
 

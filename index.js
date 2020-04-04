@@ -84,6 +84,41 @@ class LCDMenu extends LCD {
     this._getChar(charIndex);
   }
 
+  set blink(value) {
+    if (this._mode === 'menu') {
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
+    }
+    this._blink = value;
+  }
+
+  set _blink(value) {
+    super.blink = value;
+  }
+
+  set cursor(value) {
+    if (this._mode === 'menu') {
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
+    }
+    this._cursor = value;
+  }
+
+  set _cursor(value) {
+    super.cursor = value;
+  }
+
+  set display(value) {
+    if (this._mode === 'menu') {
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
+    }
+    this._display = value;
+  }
+
+  set _display(value) {
+    super.display = value;
+  }
 
   static get NORMAL() {
     return 'normal';
@@ -249,7 +284,7 @@ class LCDMenu extends LCD {
     this._setAlignment(1, LCD.LEFT);
     this._setLine(0, this._currentMenu.title ? this._currentMenu.title : '');
     if (this._currentMenu.onInput) {
-      this.blink = true;
+      this._blink = true;
       this._setLine(1, this._currentInput + chars[this._currentInputChar]);
     } else {
       this._setLine(1, this._currentMenu.items[this._currentItem].name + Array(this.cols - this._currentMenu.items[this._currentItem].name.length - 1).fill(' ').join('') + LCD.getChar(0));
