@@ -13,7 +13,7 @@ npm i raspberrypi-liquid-crystal-menu
 ## Modes (how to use basic features along with the new one)
 When instantiated, you can use the LCD object as usual. To start the 'menu' mode just call the openMenu() method and call the closeMenu() method to switch back to 'normal' mode.
 
-When in 'menu' mode, you can't access default method such as setLine(), clear(), etc... Calling those will emit an error event. Only the navigation methods, specific to this module, will be accessible.
+When in 'menu' mode, you can't access default method such as setLine(), clear(), etc... Calling those will emit an error event. Only the navigation methods, specific to this module, will be accessibles.
 
 On the contrary, when in 'normal' mode, only the base methods of the original API will be accessible and the navigation methods will emit an error event.
 
