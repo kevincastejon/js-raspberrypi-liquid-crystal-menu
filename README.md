@@ -23,7 +23,7 @@ You can check what mode is currently set on the lcd by accessing the 'mode' prop
 To open a menu send a 'menu' object to the openMenu() method.
 
 ### Menu
-A menu object is a cascading object that can lead to another menus. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/examples)
+A menu object is a cascading object that can lead to another menus. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/tree/master/examples)
 
 The object must contain the following properties:
 
@@ -48,7 +48,7 @@ If 'items' is specified the menu is then an 'regular menu' and will display sele
 - goLeft/goBack : leaves back the menu and calls the onBack callback if provided.
 
 ### Item
-An item is an object that displays selectable labels on the LCD. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/examples)
+An item is an object that displays selectable labels on the LCD. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/tree/master/examples)
 
 The object must contain the following properties:
 
