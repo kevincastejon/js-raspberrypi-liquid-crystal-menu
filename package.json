@@ -1,0 +1,19 @@
+{
+  "name": "raspberrypi-liquid-crystal-menu",
+  "version": "1.0.0",
+  "description": "Makes menus on i2c lcd with RaspberryPi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kevincastejon",
+  "license": "ISC",
+  "dependencies": {
+    "raspberrypi-liquid-crystal-simple": "^1.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}
