@@ -18,7 +18,8 @@ class LCDMenu extends LCD {
 
   clear() {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._clear();
   }
@@ -29,7 +30,8 @@ class LCDMenu extends LCD {
 
   getAlignment() {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._getAlignment();
   }
@@ -40,7 +42,8 @@ class LCDMenu extends LCD {
 
   setAlignment() {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._setAlignment();
   }
@@ -51,7 +54,8 @@ class LCDMenu extends LCD {
 
   getLine(lineIndex) {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._getLine(lineIndex);
   }
@@ -62,7 +66,8 @@ class LCDMenu extends LCD {
 
   setLine(lineIndex, text) {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._setLine(lineIndex, text);
   }
@@ -73,7 +78,8 @@ class LCDMenu extends LCD {
 
   getChar(charIndex) {
     if (this._mode === 'menu') {
-      throw new Error('You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      this.emit('error', 'You can only use the navigation methods when in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Close the menu first with the closeMenu() method.');
+      return;
     }
     this._getChar(charIndex);
   }
@@ -93,7 +99,8 @@ class LCDMenu extends LCD {
 
   goUp() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.items) {
       this._currentItem = this._currentItem - 1 < 0 ? this._currentMenu.items.length - 1 : this._currentItem - 1;
@@ -108,7 +115,8 @@ class LCDMenu extends LCD {
 
   goDown() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.items) {
       this._currentItem = this._currentItem + 1 > this._currentMenu.items.length - 1 ? 0 : this._currentItem + 1;
@@ -123,7 +131,8 @@ class LCDMenu extends LCD {
 
   goLeft() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.items) {
       this.goBack();
@@ -136,7 +145,8 @@ class LCDMenu extends LCD {
 
   goRight() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.items) {
       this.goOn();
@@ -149,7 +159,8 @@ class LCDMenu extends LCD {
 
   goOn() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.items) {
       if (this._currentMenu.items[this._currentItem].onEnter) {
@@ -169,7 +180,8 @@ class LCDMenu extends LCD {
 
   goBack() {
     if (this._mode !== 'menu') {
-      throw new Error('You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      this.emit('error', 'You cannot use the navigation methods when not in "menu" mode. Check with the "mode" property and the constants NORMAL and MENU. Open a menu first with the openMenu() method.');
+      return;
     }
     if (this._currentMenu.onBack) {
       this._currentMenu.onBack();
@@ -257,6 +269,7 @@ class LCDMenu extends LCD {
     } else {
       menu.onInput = itemsOrInputCallback;
     }
+    return (menu);
   }
 }
 module.exports = LCDMenu;
