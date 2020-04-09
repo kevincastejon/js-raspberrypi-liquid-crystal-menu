@@ -102,9 +102,5 @@ const mainMenu = {
     },
   ],
 };
-lcd.setAlignment(0, LCDMenu.RIGHT);
-lcd.setAlignment(1, LCDMenu.CENTER);
-lcd.setLine(0, 'hi');
-lcd.setLine(1, 'you');
 lcd.registerMenus([mainMenu, filesMenu, optionsMenu, subOptionsMenu, inputMenu]);
 lcd.openMenu('main');
