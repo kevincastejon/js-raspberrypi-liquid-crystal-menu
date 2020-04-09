@@ -70,12 +70,6 @@ const optionsMenu = {
       onEnter: () => console.log('enter SubOption'),
       link: 'subOptions',
     },
-    {
-      name: 'Close',
-      onSelect: () => console.log('select Close'),
-      onEnter: () => console.log('enter Close'),
-      autoClose: true,
-    },
   ],
 };
 const mainMenu = {
@@ -99,6 +93,12 @@ const mainMenu = {
       onSelect: () => console.log('select Input'),
       onEnter: () => console.log('enter Input'),
       link: 'input',
+    },
+    {
+      name: 'Close',
+      onSelect: () => console.log('select Close'),
+      onEnter: () => console.log('enter Close'),
+      autoClose: true,
     },
   ],
 };

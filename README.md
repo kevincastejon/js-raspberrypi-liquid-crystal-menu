@@ -36,9 +36,7 @@ The object must contain the following properties:
 - onBack: function - *optional* - Function called when leaving back from this menu.
 - back: int - *optional* - The number of parents menus to go back through when using the goBack() navigation method. If not specified it will lead to the direct parent menu.
 
-It MUST contains or an a 'items' or an 'onInput' property (one or the other) and a 'title' property.
-
-If 'onInput' is specified the menu is then an 'input menu' and will not display any items, instead it will allow the user to enter text with the navigation methods:
+A menu that does not own a 'items' field will be treated as an 'input' menu, displaying a input field instead of selectable items. The user will be able to enter the input through the navigation methods:
 - goUp/goDown : scrolls the letters
 - goRight : validates a letter
 - goLeft : erases the last letter
