@@ -1,36 +1,41 @@
 const LCDMenu = require('../index');
 const consoleKeyboardControl = require('./consoleKeyboardControl');
 
+const files = [{
+  name: 'File 1',
+},
+{
+  name: 'File 2',
+},
+{
+  name: 'File 3',
+}];
 const lcd = new LCDMenu(1, 0x3f, 16, 2);
-
-// Add arrows control from console for testing purpose
-consoleKeyboardControl(lcd);
-console.log('Use arrows, backspace and return (enter) to navigate through the lcd menu');
-
+lcd.on('error', (err) => console.log(err));
+lcd.on('ready', () => {
+  console.log('LCD is ready');
+  consoleKeyboardControl(lcd);
+  console.log('Use arrows, backspace and return (enter) to navigate through the lcd menu');
+});
 const inputMenu = {
   id: 'input',
-  title: 'Enter your name',
+  title: 'Input',
   onInput: (input) => {
-    lcd.setLine(0, `HELLO ${input}`);
+    files.push({ name: input });
   },
+  link: 'files',
 };
-const filesMenu = {
+// This menu is not an object but a method that will be called every time this menu is accessed. Usefull to refresh some data
+const filesMenu = () => ({
   id: 'files',
   title: 'Files',
   onBack: () => console.log('back from filesMenu'),
-  items: [
-    {
-      name: 'Fichier 1',
-      onSelect: () => console.log('select Fichier 1'),
-      onEnter: () => console.log('enter Fichier 1'),
-    },
-    {
-      name: 'Fichier 2',
-      onSelect: () => console.log('select Fichier 2'),
-      onEnter: () => console.log('enter Fichier 2'),
-    },
-  ],
-};
+  items: files.map((file) => ({
+    name: file.name,
+    onSelect: () => console.log('select', file.name),
+    onEnter: () => console.log('enter', file.name),
+  })),
+});
 const subOptionsMenu = {
   id: 'subOptions',
   title: 'SubOptions',
@@ -61,9 +66,15 @@ const optionsMenu = {
     },
     {
       name: 'SubOptions',
-      onSelect: () => console.log('select Option 2'),
-      onEnter: () => console.log('enter Option 2'),
+      onSelect: () => console.log('select SubOption'),
+      onEnter: () => console.log('enter SubOption'),
       link: 'subOptions',
+    },
+    {
+      name: 'Close',
+      onSelect: () => console.log('select Close'),
+      onEnter: () => console.log('enter Close'),
+      autoClose: true,
     },
   ],
 };
@@ -85,11 +96,15 @@ const mainMenu = {
     },
     {
       name: 'Input',
-      onSelect: () => console.log('select Options'),
-      onEnter: () => console.log('enter Options'),
+      onSelect: () => console.log('select Input'),
+      onEnter: () => console.log('enter Input'),
       link: 'input',
     },
   ],
 };
+lcd.setAlignment(0, LCDMenu.RIGHT);
+lcd.setAlignment(1, LCDMenu.CENTER);
+lcd.setLine(0, 'hi');
+lcd.setLine(1, 'you');
 lcd.registerMenus([mainMenu, filesMenu, optionsMenu, subOptionsMenu, inputMenu]);
 lcd.openMenu('main');

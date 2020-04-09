@@ -20,18 +20,21 @@ On the contrary, when in 'normal' mode, only the base methods of the original AP
 You can check what mode is currently set on the lcd by accessing the 'mode' property and comparing with the two convenience constants LCD.NORMAL and LCD.MENU or simply with the litteral strings "normal" and "menu".
 
 ## Usage
-To open a menu send a 'menu' object to the openMenu() method.
+You have to register the menus with registerMethod() before opening them with the openMenu() method.
 
 ### Menu
-A menu object is a cascading object that can lead to another menus. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/tree/master/examples)
+A menu object is a cascading object with input field or items that can lead to another menus. [See examples](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu/tree/master/examples)
 
 The object must contain the following properties:
 
+- id : string - *required* - The unique id.
 - title : string - *required* - The displayed title.
-- items: array of item objects - *required if no 'onInput' property* - The selectable items in this menu.
-- onInput: function - *required if no 'items' property* - ! Makes this menu an input menu ! Function called when validating the user input, that function will receive the user input as only argument.
+- items: array of item objects - *optional* - The selectable items in this menu. If not provided the menu will display an input field instead of selectable items.
+- onInput: function - *optional* - Called, if provided, when the menu does not own an 'items' field and the user validate its input.
+- autoClose : boolean - *optional* - If 'true' and the menu does not own an 'items' field the menu will self close after the user validate its input.
+- link : string - *optional* - The menu id to open, when the menu does not own an 'items' field, after the user validate its input.
 - onBack: function - *optional* - Function called when leaving back from this menu.
-- back: menu object - *optional* - The menu to go back when using the goBack() navigation method. If not specified it will lead to the direct parent menu.
+- back: int - *optional* - The number of parents menus to go back through when using the goBack() navigation method. If not specified it will lead to the direct parent menu.
 
 It MUST contains or an a 'items' or an 'onInput' property (one or the other) and a 'title' property.
 
@@ -42,7 +45,7 @@ If 'onInput' is specified the menu is then an 'input menu' and will not display 
 - goOn : validates the whole input
 - goBack : leaves the menu back (as usual)
 
-If 'items' is specified the menu is then an 'regular menu' and will display selectable items that the user can navigate through the navigation methods:
+If 'items' is specified the menu is then a 'regular menu' and will display selectable items that the user can navigate through the navigation methods:
 - goUp/goDown : selects previous/next item and calls the onSelect callback if provided.
 - goRight/goOn : enters the item, calls the onEnter callback if provided. It leads to the next menu if the item contains a 'link' menu property, closes the menu otherwise.
 - goLeft/goBack : leaves back the menu and calls the onBack callback if provided.
@@ -53,39 +56,78 @@ An item is an object that displays selectable labels on the LCD. [See examples](
 The object must contain the following properties:
 
 - name : string - *required* - The displayed label.
-- link: menu - *optional* - The menu that will be displayed when entering this item. If not provided, entering the item will simply call the callbacks (if any) and close the current menu.
+- link: string - *optional* - The menu id that will be displayed when entering this item.
 - onSelect: function - *optional* - Function called when selecting the item (hover).
 - onEnter: function - *optional* - Function called when entering the item.
 
+### Dynamic data
+Sometimes you need to display menu according to changing data, the upper static way of declaring a menu is not able to 'refresh' after registering.
+
+Instead you would declare a menu as a method that will be called every time the menu is accessed. See below example.
+
+### Custom characters
+Custom characters works as they do in the extended [original API](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-simple/blob/master/README.md#api)), except that you can only specify 7 chars (instead of 8), that because one custom character is already reserved for this module (the double arrow items selection indicator)
+
 ## Basic Example
-Basic usage
+Items menu usage
 ```
 const myMenu = {
+  id: 'myMenu',
   title: 'My Menu',
   items: [
     {
       name: 'item 1',
       onSelect: () => console.log('selected item 1'),
       onEnter: () => console.log('entered item 1'),
-      link: anotherMenu,
+      link: 'anotherMenu',
     },
     {
       name: 'item 2',
     },
   ]
 };
-lcd.openMenu(myMenu);
+lcd.registerMenus([myMenu]);
+lcd.openMenu('myMenu');
 ```
 
-Input usage
+Input menu usage (just don't provide 'items' field or set it to 'null')
 ```
 const myInputMenu = {
+  id: 'myInputMenu',
   title: 'My input menu',
   onInput: (userInput) => console.log(userInput),
   ]
 };
-lcd.openMenu(myInputMenu);
+lcd.registerMenus([myInputMenu]);
+lcd.openMenu('myInputMenu');
 ```
+
+Dynamic menu usage
+```
+const data = [{
+  name: 'File 1',
+},
+{
+  name: 'File 2',
+},
+{
+  name: 'File 3',
+}];
+
+// This menu is not an object but a method that will be called every time this menu is accessed. Usefull to refresh some data.
+const dynamicMenu = () => ({
+  id: 'dynamicMenu',
+  title: 'Data',
+  items: data.map((file) => ({
+    name: file.name,
+    onSelect: () => console.log('select', file.name),
+    onEnter: () => console.log('enter', file.name),
+  })),
+});
+lcd.registerMenus([dynamicMenu]);
+lcd.openMenu('dynamicMenu');
+```
+
 ## API (does not include the inherited [original API](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-simple/blob/master/README.md#api))
 - **constructor ( bus : int, address : int, cols : int, rows : int [, customChars : [][]int] )**
 ### Constants
@@ -94,14 +136,16 @@ lcd.openMenu(myInputMenu);
 ### Properties
 - **mode** [read-only] : string - Returns the current mode set on the LCD ("normal" or "menu").
 ### Methods
-- **openMenu ( menu : 'menu' object )** : void - Opens the provided menu (makes the original API not accessible).
-- **closeMenu ()** : void - Closes the current opened menu (makes the original API accessible).
+- **registerMenus ( menus : array of menus )** : void - Registers the provided menus.
+- **unregisterMenu ( menuId : string )** : void - Unregisters the menu with the provided id.
+- **openMenu ( menuId : string )** : void - Opens the registered menu with the provided id (makes the original API not accessible).
+- **closeMenu ()** : void - Closes the current opened menu (makes the original API accessible). Note that once menus are closed and the 'mode' property is set back to false, the LCD will retrieve any setting prior to openMenu() call (alignments, lines content, blink and cursor)
 - **goLeft ()** : void - Navigates left (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goRight ()** : void - Navigates right (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goUp ()** : void - Navigates up (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goDown ()** : void - Navigates down (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goBack ()** : void - Navigates back (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
 - **goOn ()** : void - Navigates forward (see [Modes section](https://github.com/kevincastejon/js-raspberrypi-liquid-crystal-menu#modes-how-to-use-basic-features-along-with-the-new-one))
-
+- **render ()** : void - This method should not be called ! It provides an escape hatch in rare cases where the data are externally modified but the LCDMenu display has not been updated. Calling this will re-render the current menu, refetching any data used into it. Only usefull for dynamic menus.
 ### Events
 - **error** (error) - Fires when an error is encountered.
